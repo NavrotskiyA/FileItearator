@@ -1,0 +1,15 @@
+{
+    "name": "alex/untitled1",
+    "authors": [
+        {
+            "name": "Alexandr Navrotskiy",
+            "email": "navrotskiy.alex@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "src\\" : "src/"
+        }
+    }
+}

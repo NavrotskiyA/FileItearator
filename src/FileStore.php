@@ -15,23 +15,14 @@ class FileStore implements \Iterator
         $this->path = $path;
     }
 
-    /**
-     *  Получение ключей массива и первой строки со значеними
-     */
     protected function init()
     {
         $this->file = fopen($this->path, 'r');
-//        $this->keys = fgetcsv($this->file);
-        $this->fileArray[$this->index] = $this->getString()->current();
+        $this->fileArray[$this->index] = $this->getString();
     }
     protected function getString()
     {
-//        while($string = fgetcsv($this->file)){
-//            yield array_combine($this->keys, $string);
-//        }
-        while($string = fgets($this->file)){
-            yield $string;
-        }
+        return fgets($this->file);
     }
     public function current()
     {
@@ -41,7 +32,7 @@ class FileStore implements \Iterator
     public function next()
     {
         $this->index++;
-        $this->fileArray[$this->index] = $this->getString()->current();
+        $this->fileArray[$this->index] = $this->getString();
     }
 
     public function key()
@@ -49,9 +40,12 @@ class FileStore implements \Iterator
         return $this->index;
     }
 
-    public function valid()
+    public function valid(): bool
     {
-        return isset($this->fileArray[$this->index]);
+        if($this->fileArray[$this->index] == ''){
+            return false;
+        }
+        return true;
     }
 
     public function rewind()
